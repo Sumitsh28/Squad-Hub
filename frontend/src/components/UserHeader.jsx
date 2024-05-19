@@ -36,11 +36,21 @@ import { useState } from "react";
 import useShowToast from "../../hooks/useShowToast";
 import { FaFacebook, FaInstagram, FaLinkedin, FaTwitter } from "react-icons/fa";
 import { IoQrCode } from "react-icons/io5";
+import { motion } from "framer-motion";
 
 const UserHeader = ({ user }) => {
   const toast = useToast();
   const currentUser = useRecoilValue(userAtoms); //logged in user
   const [isHovered, setIsHovered] = useState(false);
+  const [isFlipped, setIsFlipped] = useState(false);
+  const [isAnimating, setIsAnimating] = useState(false);
+
+  function handleFlip() {
+    if (!isAnimating) {
+      setIsFlipped(!isFlipped);
+      setIsAnimating(true);
+    }
+  }
   const [following, setFollowing] = useState(
     user.followers.includes(currentUser?._id)
   );
@@ -249,7 +259,7 @@ const UserHeader = ({ user }) => {
                 >
                   <Image
                     name={user.name}
-                    src={`https://quickchart.io/qr?text=${user.username}&size=200`}
+                    src={`https://quickchart.io/qr?text=${window.location.href}&size=200`}
                     style={{
                       width: "78%",
                       height: "100%",
