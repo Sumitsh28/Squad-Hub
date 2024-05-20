@@ -1,6 +1,6 @@
 import { Container, Box, Menu, Flex, GridItem, Grid } from "@chakra-ui/react";
 import "./App.css";
-import { Route, Routes, Navigate } from "react-router-dom";
+import { Route, Routes, Navigate, useLocation } from "react-router-dom";
 import UserPage from "./pages/UserPage";
 import PostPage from "./pages/PostPage";
 import Header from "./components/Header";
@@ -12,16 +12,20 @@ import UpdateProfilePage from "./pages/UpdateProfilePage";
 import ChatPage from "./pages/ChatPage";
 import MyComponent from "./components/Menu";
 import Blitz from "./pages/Blitz";
+import { SettingsPage } from "./pages/SettingsPage";
 
 function App() {
   const user = useRecoilValue(userAtom);
+  const { pathname } = useLocation();
   return (
     <>
       <Grid templateColumns="repeat(3, 1fr)" gap={6} maxW="1200px" m="auto">
         <GridItem colSpan={1}>{user && <MyComponent />}</GridItem>
         <GridItem colSpan={1}>
           <Box w="600px">
-            <Container maxW="620px">
+            <Container
+              maxW={pathname === "/" ? { base: "620px", md: "900px" } : "620px"}
+            >
               <Header />
               <Routes>
                 <Route
@@ -59,6 +63,11 @@ function App() {
                 <Route
                   path="/blitz"
                   element={user ? <Blitz /> : <Navigate to="/auth" />}
+                />
+
+                <Route
+                  path="/settings"
+                  element={user ? <SettingsPage /> : <Navigate to={"/auth"} />}
                 />
               </Routes>
             </Container>

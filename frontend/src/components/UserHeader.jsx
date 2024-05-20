@@ -37,6 +37,7 @@ import useShowToast from "../../hooks/useShowToast";
 import { FaFacebook, FaInstagram, FaLinkedin, FaTwitter } from "react-icons/fa";
 import { IoQrCode } from "react-icons/io5";
 import { motion } from "framer-motion";
+import useFollowUnfollow from "../../hooks/useFollowUnfollow";
 
 const UserHeader = ({ user }) => {
   const toast = useToast();
@@ -44,6 +45,7 @@ const UserHeader = ({ user }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isFlipped, setIsFlipped] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
+  const { handleFollowUnfollow, following, updating } = useFollowUnfollow(user);
 
   function handleFlip() {
     if (!isAnimating) {
@@ -51,11 +53,7 @@ const UserHeader = ({ user }) => {
       setIsAnimating(true);
     }
   }
-  const [following, setFollowing] = useState(
-    user.followers.includes(currentUser?._id)
-  );
-  const [updating, setUpdating] = useState(false);
-  const showToast = useShowToast();
+
   const {
     isOpen: isOpenModal1,
     onOpen: onOpenModal1,
@@ -77,44 +75,6 @@ const UserHeader = ({ user }) => {
         description: "Profile link copied",
       });
     });
-  };
-
-  const handleFollowUnfollow = async () => {
-    if (!currentUser) {
-      showToast("Error", "Please login to follow", "error");
-      return;
-    }
-    if (updating) return;
-
-    setUpdating(true);
-    try {
-      const res = await fetch(`/api/users/follow/${user._id}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      const data = await res.json();
-      if (data.error) {
-        showToast("Error", data.error, "error");
-        return;
-      }
-
-      console.log(data);
-
-      if (following) {
-        showToast("Success", `Unfollowed ${user.name}`, "success");
-        user.followers.pop(); // simulate removing from followers
-      } else {
-        showToast("Success", `Followed ${user.name}`, "success");
-        user.followers.push(currentUser?._id); // simulate adding to followers
-      }
-      setFollowing(!following);
-    } catch (error) {
-      showToast("Error", error, "error");
-    } finally {
-      setUpdating(false);
-    }
   };
 
   const openImg = () => {};
@@ -240,38 +200,6 @@ const UserHeader = ({ user }) => {
           <Text color={"gray.light"}>{user.following.length} following</Text>
         </Flex>
         <Flex gap={10} justifyContent={"center"} alignItems={"center"}>
-          <Text cursor="pointer" _hover={{ color: "#FF9900" }}>
-            <IoQrCode onClick={onOpenModal2} />
-            <Modal isOpen={isOpenModal2} onClose={onCloseModal2}>
-              <ModalOverlay />
-
-              <ModalContent
-                bg={useColorModeValue("#0000000", "#0000000")}
-                h="400px"
-                display={"flex"}
-              >
-                <ModalCloseButton _hover={{ color: "#FF9900" }} />
-                <ModalBody
-                  pb={6}
-                  mt={20}
-                  display="flex"
-                  justifyContent="center"
-                >
-                  <Image
-                    name={user.name}
-                    src={`https://quickchart.io/qr?text=${window.location.href}&size=200`}
-                    style={{
-                      width: "78%",
-                      height: "100%",
-                      objectFit: "cover",
-                      borderRadius: "50%",
-                      overflow: "hidden",
-                    }}
-                  />
-                </ModalBody>
-              </ModalContent>
-            </Modal>
-          </Text>
           <Menu placement="left">
             <MenuButton cursor="pointer" _hover={{ color: "#FF9900" }}>
               <CgMoreO size={20} />
@@ -331,6 +259,38 @@ const UserHeader = ({ user }) => {
               </MenuItem>
             </MenuList>
           </Menu>
+          <Text cursor="pointer" _hover={{ color: "#FF9900" }}>
+            <IoQrCode onClick={onOpenModal2} />
+            <Modal isOpen={isOpenModal2} onClose={onCloseModal2}>
+              <ModalOverlay />
+
+              <ModalContent
+                bg={useColorModeValue("#0000000", "#0000000")}
+                h="400px"
+                display={"flex"}
+              >
+                <ModalCloseButton _hover={{ color: "#FF9900" }} />
+                <ModalBody
+                  pb={6}
+                  mt={20}
+                  display="flex"
+                  justifyContent="center"
+                >
+                  <Image
+                    name={user.name}
+                    src={`https://quickchart.io/qr?text=${window.location.href}&size=200`}
+                    style={{
+                      width: "78%",
+                      height: "100%",
+                      objectFit: "cover",
+                      borderRadius: "50%",
+                      overflow: "hidden",
+                    }}
+                  />
+                </ModalBody>
+              </ModalContent>
+            </Modal>
+          </Text>
 
           <Icon
             as={IoMdLink}
