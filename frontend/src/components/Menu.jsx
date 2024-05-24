@@ -135,7 +135,7 @@ const Menuu = () => {
           as={RouterLink}
           to="/premium"
           _hover={{ color: "#FF9900" }}
-          color={location.pathname === "/premium" ? "#FF9900" : ""}
+          color={location.pathname.startsWith("/premium") ? "#FF9900" : ""}
         >
           <Flex justifyContent={"center"} alignItems={"center"} gap={5}>
             <MdStars size={25} />

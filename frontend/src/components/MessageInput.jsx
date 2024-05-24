@@ -11,6 +11,8 @@ import {
   ModalHeader,
   ModalOverlay,
   Spinner,
+  Text,
+  useColorModeValue,
   useDisclosure,
 } from "@chakra-ui/react";
 import { useRef, useState } from "react";
@@ -93,14 +95,19 @@ const MessageInput = ({ setMessages }) => {
             placeholder="Type a message"
             onChange={(e) => setMessageText(e.target.value)}
             value={messageText}
+            focusBorderColor="#ff9900ac"
           />
           <InputRightElement onClick={handleSendMessage} cursor={"pointer"}>
-            <IoSendSharp />
+            <Text _hover={{ color: "#FF9900" }}>
+              <IoSendSharp />
+            </Text>
           </InputRightElement>
         </InputGroup>
       </form>
       <Flex flex={5} cursor={"pointer"}>
-        <BsFillImageFill size={20} onClick={() => imageRef.current.click()} />
+        <Text _hover={{ color: "#FF9900" }}>
+          <BsFillImageFill size={20} onClick={() => imageRef.current.click()} />
+        </Text>
         <Input
           type={"file"}
           hidden
@@ -116,20 +123,22 @@ const MessageInput = ({ setMessages }) => {
         }}
       >
         <ModalOverlay />
-        <ModalContent>
+        <ModalContent bg={useColorModeValue("gray.300", "gray.dark")}>
           <ModalHeader></ModalHeader>
-          <ModalCloseButton />
+          <ModalCloseButton _hover={{ color: "#FF9900" }} />
           <ModalBody>
             <Flex mt={5} w={"full"}>
               <Image src={imgUrl} />
             </Flex>
             <Flex justifyContent={"flex-end"} my={2}>
               {!isSending ? (
-                <IoSendSharp
-                  size={24}
-                  cursor={"pointer"}
-                  onClick={handleSendMessage}
-                />
+                <Text _hover={{ color: "#FF9900" }}>
+                  <IoSendSharp
+                    size={24}
+                    cursor={"pointer"}
+                    onClick={handleSendMessage}
+                  />
+                </Text>
               ) : (
                 <Spinner size={"md"} />
               )}

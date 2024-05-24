@@ -4,6 +4,7 @@ import connectDB from "./db/connectDB.js";
 import cookieParser from "cookie-parser";
 import userRoutes from "./routes/userRoutes.js";
 import postRoutes from "./routes/postRoutes.js";
+import blitzRoutes from "./routes/blitzRoutes.js";
 import messageRoutes from "./routes/messageRoute.js";
 import { v2 as cloudinary } from "cloudinary";
 import { app, server } from "./socket/socket.js";
@@ -26,6 +27,7 @@ app.use(cookieParser());
 
 app.use("/api/users", userRoutes);
 app.use("/api/posts", postRoutes);
+app.use("/api/blitzs", blitzRoutes);
 app.use("/api/messages", messageRoutes);
 
 server.listen(PORT, () =>

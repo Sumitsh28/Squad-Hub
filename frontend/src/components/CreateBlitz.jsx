@@ -5,6 +5,7 @@ import {
   Flex,
   FormControl,
   Image,
+  Box,
   Input,
   Modal,
   ModalBody,
@@ -19,26 +20,26 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { useRef, useState } from "react";
-import usePreviewImg from "../../hooks/usePreviewImg";
-import { BsFillImageFill } from "react-icons/bs";
+import usePreviewMedia from "../../hooks/usePreviewMedia";
+import { BsFillCameraVideoFill, BsFillImageFill } from "react-icons/bs";
 import { useRecoilState, useRecoilValue } from "recoil";
 import userAtom from "../../atoms/UserAtoms";
 import useShowToast from "../../hooks/useShowToast";
-import postsAtom from "../../atoms/PostsAtom";
+import blitzsAtom from "../../atoms/BlitzsAtom";
 import { useLocation, useParams } from "react-router-dom";
 
-const MAX_CHAR = 500;
+const MAX_CHAR = 30;
 
 function CreateBlitz() {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [postText, setPostText] = useState("");
-  const { handleImageChange, imgUrl, setImgUrl } = usePreviewImg();
-  const imageRef = useRef(null);
+  const [blitzText, setBlitzText] = useState("");
+  const { handleVideoChange, vidUrl, setVidUrl } = usePreviewMedia();
+  const videoRef = useRef(null);
   const [remainingChar, setRemainingChar] = useState(MAX_CHAR);
   const user = useRecoilValue(userAtom);
   const showToast = useShowToast();
   const [loading, setLoading] = useState(false);
-  const [posts, setPosts] = useRecoilState(postsAtom);
+  const [blitzs, setBlitzs] = useRecoilState(blitzsAtom);
   const { username } = useParams();
 
   const handleTextChange = (e) => {
@@ -46,43 +47,44 @@ function CreateBlitz() {
 
     if (inputText.length > MAX_CHAR) {
       const truncatedText = inputText.slice(0, MAX_CHAR);
-      setPostText(truncatedText);
+      setBlitzText(truncatedText);
       setRemainingChar(0);
     } else {
-      setPostText(inputText);
+      setBlitzText(inputText);
       setRemainingChar(MAX_CHAR - inputText.length);
     }
   };
 
-  const handleCreatePost = async () => {
+  const handleCreateBlitz = async () => {
     setLoading(true);
     try {
-      const res = await fetch("/api/posts/create", {
+      const formData = new FormData();
+      formData.append("postedBy", user._id);
+      formData.append("text", blitzText);
+      if (mediaFile) {
+        formData.append("vid", mediaFile);
+      }
+
+      const res = await fetch("/api/blitzs/create", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          postedBy: user._id,
-          text: postText,
-          img: imgUrl,
-        }),
+        body: formData,
       });
 
       const data = await res.json();
+      console.log(data);
       if (data.error) {
         showToast("Error", data.error, "error");
         return;
       }
-      showToast("Success", "Post created successfully", "success");
-      if (username === user.username) {
-        setPosts([data, ...posts]);
-      }
+      showToast("Success", "Blitz created successfully", "success");
+
+      setBlitzs([data, ...blitzs]);
+
       onClose();
-      setPostText("");
-      setImgUrl("");
+      setBlitzText("");
+      setMediaUrl("");
     } catch (error) {
-      showToast("Error", error, "error");
+      showToast("Error", error.message, "error");
     } finally {
       setLoading(false);
     }
@@ -108,14 +110,14 @@ function CreateBlitz() {
         <ModalOverlay />
 
         <ModalContent bg={useColorModeValue("gray.300", "gray.dark")}>
-          <ModalHeader>Create Post</ModalHeader>
+          <ModalHeader>Create Blitz</ModalHeader>
           <ModalCloseButton _hover={{ color: "#FF9900" }} />
           <ModalBody pb={6}>
             <FormControl>
               <Textarea
-                placeholder="Post content goes here.."
+                placeholder="Blitz title goes here.."
                 onChange={handleTextChange}
-                value={postText}
+                value={blitzText}
                 focusBorderColor="#ff9900ac"
               />
               <Text
@@ -131,24 +133,35 @@ function CreateBlitz() {
               <Input
                 type="file"
                 hidden
-                ref={imageRef}
-                onChange={handleImageChange}
+                ref={videoRef}
+                onChange={handleVideoChange}
               />
               <Text _hover={{ color: "#FF9900" }}>
-                <BsFillImageFill
+                <BsFillCameraVideoFill
                   style={{ marginLeft: "5px", cursor: "pointer" }}
                   size={16}
-                  onClick={() => imageRef.current.click()}
+                  onClick={() => videoRef.current.click()}
                 />
               </Text>
             </FormControl>
 
-            {imgUrl && (
+            {vidUrl && (
               <Flex mt={5} w={"full"} position={"relative"}>
-                <Image src={imgUrl} alt="Selected img" />
+                <Box
+                  as="video"
+                  src={vidUrl}
+                  alt="vid"
+                  controls
+                  width="100%"
+                  maxW="600px"
+                  mx="auto"
+                  mt={4}
+                  borderRadius="md"
+                  boxShadow="lg"
+                />
                 <CloseButton
                   onClick={() => {
-                    setImgUrl("");
+                    setVidUrl("");
                   }}
                   bg={"gray.800"}
                   position={"absolute"}
@@ -164,7 +177,7 @@ function CreateBlitz() {
             <Button
               bg={"#FF9900"}
               mr={3}
-              onClick={handleCreatePost}
+              onClick={handleCreateBlitz}
               isLoading={loading}
               _hover={{ color: "" }}
             >

@@ -13,6 +13,9 @@ import ChatPage from "./pages/ChatPage";
 import MyComponent from "./components/Menu";
 import Blitz from "./pages/Blitz";
 import { SettingsPage } from "./pages/SettingsPage";
+import PremiumPage from "./pages/PremiumPage";
+import PremiumPayment from "./pages/PremiumPayment";
+import PaymentConfirmation from "./pages/PaymentConfirmation";
 
 function App() {
   const user = useRecoilValue(userAtom);
@@ -68,6 +71,25 @@ function App() {
                 <Route
                   path="/settings"
                   element={user ? <SettingsPage /> : <Navigate to={"/auth"} />}
+                />
+
+                <Route
+                  path="/premium"
+                  element={user ? <PremiumPage /> : <Navigate to={"/auth"} />}
+                />
+
+                <Route
+                  path="/premium/payment"
+                  element={
+                    user ? <PremiumPayment /> : <Navigate to={"/auth"} />
+                  }
+                />
+
+                <Route
+                  path="/premium/payment/confirm"
+                  element={
+                    user ? <PaymentConfirmation /> : <Navigate to={"/auth"} />
+                  }
                 />
               </Routes>
             </Container>

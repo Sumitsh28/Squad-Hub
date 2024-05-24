@@ -199,6 +199,8 @@ const PostPage = () => {
             reply._id ===
             currentPost.replies[currentPost.replies.length - 1]._id
           }
+          post={currentPost}
+          setPosts={setPosts}
         />
       ))}
     </>

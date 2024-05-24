@@ -46,13 +46,6 @@ const Conversation = ({ conversation, isOnline }) => {
           mock: conversation.mock,
         })
       }
-      bg={
-        selectedConversation?._id === conversation._id
-          ? colorMode === "light"
-            ? "gray.400"
-            : "gray.dark"
-          : ""
-      }
     >
       <WrapItem>
         <Avatar

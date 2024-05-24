@@ -163,13 +163,16 @@ const ChatPage = () => {
               <Input
                 placeholder="Search for a user"
                 onChange={(e) => setSearchText(e.target.value)}
+                focusBorderColor="#ff9900ac"
               />
               <Button
                 size={"sm"}
                 onClick={handleConversationSearch}
                 isLoading={searchingUser}
               >
-                <SearchIcon />
+                <Text _hover={{ color: "#FF9900" }}>
+                  <SearchIcon />
+                </Text>
               </Button>
             </Flex>
           </form>
