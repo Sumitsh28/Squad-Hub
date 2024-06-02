@@ -8,6 +8,8 @@
   max-height: 1200px;
   overflow: scroll;
   scroll-snap-type: mandatory;
+  display: flex;
+  flex-direction: column;
 }
 
 .app__videos::-webkit-scrollbar {

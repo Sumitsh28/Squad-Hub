@@ -58,33 +58,32 @@ function CreateBlitz() {
   const handleCreateBlitz = async () => {
     setLoading(true);
     try {
-      const formData = new FormData();
-      formData.append("postedBy", user._id);
-      formData.append("text", blitzText);
-      if (mediaFile) {
-        formData.append("vid", mediaFile);
-      }
-
       const res = await fetch("/api/blitzs/create", {
         method: "POST",
-        body: formData,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          postedBy: user._id,
+          text: blitzText,
+          vid: vidUrl,
+        }),
       });
 
       const data = await res.json();
-      console.log(data);
       if (data.error) {
         showToast("Error", data.error, "error");
         return;
       }
       showToast("Success", "Blitz created successfully", "success");
-
-      setBlitzs([data, ...blitzs]);
-
+      if (username === user.username) {
+        setPosts([data, ...blitzs]);
+      }
       onClose();
       setBlitzText("");
-      setMediaUrl("");
+      setVidUrl("");
     } catch (error) {
-      showToast("Error", error.message, "error");
+      showToast("Error", error, "error");
     } finally {
       setLoading(false);
     }

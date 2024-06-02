@@ -16,6 +16,9 @@ import { SettingsPage } from "./pages/SettingsPage";
 import PremiumPage from "./pages/PremiumPage";
 import PremiumPayment from "./pages/PremiumPayment";
 import PaymentConfirmation from "./pages/PaymentConfirmation";
+import NotificationPage from "./pages/NotificationPage";
+import BookmarksPage from "./pages/BookmarksPage";
+import Live from "./pages/Live";
 
 function App() {
   const user = useRecoilValue(userAtom);
@@ -64,6 +67,11 @@ function App() {
                 />
 
                 <Route
+                  path="/live"
+                  element={user ? <Live /> : <Navigate to={"/auth"} />}
+                />
+
+                <Route
                   path="/blitz"
                   element={user ? <Blitz /> : <Navigate to="/auth" />}
                 />
@@ -90,6 +98,18 @@ function App() {
                   element={
                     user ? <PaymentConfirmation /> : <Navigate to={"/auth"} />
                   }
+                />
+
+                <Route
+                  path="/notifications"
+                  element={
+                    user ? <NotificationPage /> : <Navigate to={"/auth"} />
+                  }
+                />
+
+                <Route
+                  path="/bookmarks"
+                  element={user ? <BookmarksPage /> : <Navigate to={"/auth"} />}
                 />
               </Routes>
             </Container>

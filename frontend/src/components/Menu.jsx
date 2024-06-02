@@ -30,10 +30,12 @@ import { BsFillChatQuoteFill } from "react-icons/bs";
 import { AiFillNotification } from "react-icons/ai";
 import { BsBookmarksFill } from "react-icons/bs";
 import { IoIosFastforward } from "react-icons/io";
-import { MdStars } from "react-icons/md";
+import { MdLiveTv, MdStars } from "react-icons/md";
 import { GrSettingsOption } from "react-icons/gr";
 import CreatePost from "./CreatePost";
 import CreateBlitz from "./CreateBlitz";
+import { FaStream } from "react-icons/fa";
+import { CiStreamOn } from "react-icons/ci";
 
 const MyComponent = () => {
   const [isLargerThan768] = useMediaQuery("(min-width: 987px)");
@@ -89,6 +91,19 @@ const Menuu = () => {
             <BsFillChatQuoteFill size={25} />
 
             <Text fontWeight={"bold"}>Chats</Text>
+          </Flex>
+        </Link>
+
+        <Link
+          as={RouterLink}
+          to="/live"
+          _hover={{ color: "#FF9900" }}
+          color={location.pathname === "/live" ? "#FF9900" : ""}
+        >
+          <Flex justifyContent={"center"} alignItems={"center"} gap={5}>
+            <CiStreamOn size={25} />
+
+            <Text fontWeight={"bold"}>Go Live</Text>
           </Flex>
         </Link>
 
