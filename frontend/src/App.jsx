@@ -19,6 +19,7 @@ import PaymentConfirmation from "./pages/PaymentConfirmation";
 import NotificationPage from "./pages/NotificationPage";
 import BookmarksPage from "./pages/BookmarksPage";
 import Live from "./pages/Live";
+import SuggestedUsers from "./components/SuggestedUsers";
 
 function App() {
   const user = useRecoilValue(userAtom);
@@ -115,7 +116,23 @@ function App() {
             </Container>
           </Box>
         </GridItem>
-        {/* <GridItem colSpan={1}>Others</GridItem> */}
+
+        {pathname !== "/premium" && pathname !== "/chat" && (
+          <GridItem colSpan={1}>
+            <Box
+              flex={30}
+              display={{
+                base: "none",
+                md: "block",
+              }}
+              mt={40}
+              position={"fixed"}
+              ml={10}
+            >
+              <SuggestedUsers />
+            </Box>
+          </GridItem>
+        )}
       </Grid>
     </>
   );

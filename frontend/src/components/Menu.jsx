@@ -53,7 +53,7 @@ const Menuu = () => {
   return (
     <Flex
       flexDirection={"column"}
-      gap={200}
+      gap={20}
       alignItems={"start"}
       position={"fixed"}
       ml={10}
@@ -173,7 +173,7 @@ const Menuu = () => {
         </Link>
       </Flex>
 
-      <Flex alignItems={"center"} gap={16}>
+      <Flex alignItems={"center"} gap={10}>
         <Flex alignItems={"center"} gap={4}>
           <Link as={RouterLink} to={`/${user.username}`}>
             <Avatar

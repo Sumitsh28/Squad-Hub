@@ -1,7 +1,12 @@
+import { Box, Text } from "@chakra-ui/react";
 import React from "react";
 
 const NotificationPage = () => {
-  return <div>NotificationPage</div>;
+  return (
+    <Box>
+      <Text>NO NOTIFICATIONS</Text>
+    </Box>
+  );
 };
 
 export default NotificationPage;

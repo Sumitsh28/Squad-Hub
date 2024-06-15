@@ -27,12 +27,14 @@ const Live = () => {
 
   const user = {
     id: userId,
-    name: "Sumit",
+    name: "Sumit2",
     image: profile,
   };
 
   const client = new StreamVideoClient({ apiKey, user, token });
   const call = client.call("livestream", callId);
+  call.camera.disable();
+  call.microphone.disable();
   call.join({ create: true });
   return (
     <StreamVideo client={client}>

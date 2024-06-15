@@ -219,7 +219,7 @@ const Post = ({ post, postedBy }) => {
               border={"1px solid"}
               borderColor={"gray.light"}
             >
-              <Image src={post.img} w={"full"} />
+              <Image src={post.img} width={"full"} h={"full"} />
             </Box>
           )}
         </Link>
