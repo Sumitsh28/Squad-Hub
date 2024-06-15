@@ -117,22 +117,24 @@ function App() {
           </Box>
         </GridItem>
 
-        {pathname !== "/premium" && pathname !== "/chat" && (
-          <GridItem colSpan={1}>
-            <Box
-              flex={30}
-              display={{
-                base: "none",
-                md: "block",
-              }}
-              mt={40}
-              position={"fixed"}
-              ml={10}
-            >
-              <SuggestedUsers />
-            </Box>
-          </GridItem>
-        )}
+        {pathname !== "/premium" &&
+          pathname !== "/chat" &&
+          pathname !== "/auth" && (
+            <GridItem colSpan={1}>
+              <Box
+                flex={30}
+                display={{
+                  base: "none",
+                  md: "block",
+                }}
+                mt={40}
+                position={"fixed"}
+                ml={10}
+              >
+                <SuggestedUsers />
+              </Box>
+            </GridItem>
+          )}
       </Grid>
     </>
   );
