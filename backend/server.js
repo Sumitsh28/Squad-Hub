@@ -9,10 +9,12 @@ import messageRoutes from "./routes/messageRoute.js";
 import { v2 as cloudinary } from "cloudinary";
 import { app, server } from "./socket/socket.js";
 import path from "path";
+import job from "./crons/cron.js";
 
 dotenv.config();
 
 connectDB();
+job.start();
 
 const PORT = process.env.PORT || 4000;
 const __dirname = path.resolve();
