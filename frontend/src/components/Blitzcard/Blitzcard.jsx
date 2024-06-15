@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./Blitzcard.css";
 import avatarSrc from "../../../public/profile.jpg";
-import BlitzFooter from "../BlitzFooter/BlitzFooter";
 import BlitzHeader from "../BlitzHeader/BlitzHeader";
 import BlitzActions from "../BlitzActions";
 import {
