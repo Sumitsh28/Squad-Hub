@@ -18,7 +18,7 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 import userAtom from "../../atoms/UserAtoms";
 import { AiFillHome, AiFillNotification } from "react-icons/ai";
 import { RxAvatar } from "react-icons/rx";
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink, useLocation } from "react-router-dom";
 import { useState } from "react";
 import { FiLogOut } from "react-icons/fi";
 import useLogout from "../../hooks/useLogout";
@@ -43,13 +43,18 @@ const Header = () => {
   const logout = useLogout();
   const setAuthScreen = useSetRecoilState(authScreenAtom);
   const [isLargerThan768] = useMediaQuery("(min-width: 987px)");
+  const location = useLocation();
   return (
     <Flex
       mt={6}
       mb="12"
       alignItems={"center"}
       gap={{ base: 70, lg: 40 }}
-      justifyContent={"space-evenly"}
+      justifyContent={{
+        base: "space-between",
+        md: "space-evenly",
+        lg: "space-evenly",
+      }}
     >
       {user && !isLargerThan768 && (
         <Flex alignItems={"center"} gap={4}>
@@ -91,54 +96,136 @@ const Header = () => {
 
       {user && !isLargerThan768 && (
         <Menu>
-          <MenuButton _hover={{ color: "#FF9900" }} fontSize={"x-large"}>
+          <MenuButton
+            _hover={{ color: "#FF9900" }}
+            fontSize={"x-large"}
+            mr={10}
+          >
             <HiOutlineMenu />
           </MenuButton>
-          <MenuList bg="#000000">
-            <MenuItem bg="#000000" _hover={{ color: "#FF9900" }}>
-              <Flex alignItems={"center"} justifyItems={"center"} gap={3}>
-                <AiFillHome size={25} />
-                <Text>Home</Text>
-              </Flex>
+          <MenuList
+            bg={colorMode === "dark" ? "#000000" : "gray.300"}
+            zIndex={50}
+          >
+            <MenuItem
+              bg={colorMode === "dark" ? "#000000" : "gray.300"}
+              _hover={{ color: "#FF9900" }}
+            >
+              <Link
+                as={RouterLink}
+                to="/"
+                _hover={{ color: "#FF9900" }}
+                color={location.pathname === "/" ? "#FF9900" : ""}
+              >
+                <Flex alignItems={"center"} justifyItems={"center"} gap={3}>
+                  <AiFillHome size={25} />
+                  <Text>Home</Text>
+                </Flex>
+              </Link>
             </MenuItem>
-            <MenuItem bg="#000000" _hover={{ color: "#FF9900" }}>
-              <Flex alignItems={"center"} justifyItems={"center"} gap={3}>
-                <BsFillChatQuoteFill size={25} />
-                <Text>Chats</Text>
-              </Flex>
+            <MenuItem
+              bg={colorMode === "dark" ? "#000000" : "gray.300"}
+              _hover={{ color: "#FF9900" }}
+            >
+              <Link
+                as={RouterLink}
+                to="/chat"
+                _hover={{ color: "#FF9900" }}
+                color={location.pathname === "/chat" ? "#FF9900" : ""}
+              >
+                <Flex alignItems={"center"} justifyItems={"center"} gap={3}>
+                  <BsFillChatQuoteFill size={25} />
+                  <Text>Chats</Text>
+                </Flex>
+              </Link>
             </MenuItem>
-            <MenuItem bg="#000000" _hover={{ color: "#FF9900" }}>
-              <Flex alignItems={"center"} justifyItems={"center"} gap={3}>
-                <AiFillNotification size={25} />
-                <Text>Notifications</Text>
-              </Flex>
+            <MenuItem
+              bg={colorMode === "dark" ? "#000000" : "gray.300"}
+              _hover={{ color: "#FF9900" }}
+            >
+              <Link
+                as={RouterLink}
+                to="/notifications"
+                _hover={{ color: "#FF9900" }}
+                color={location.pathname === "/notifications" ? "#FF9900" : ""}
+              >
+                <Flex alignItems={"center"} justifyItems={"center"} gap={3}>
+                  <AiFillNotification size={25} />
+                  <Text>Notifications</Text>
+                </Flex>
+              </Link>
             </MenuItem>
-            <MenuItem bg="#000000" _hover={{ color: "#FF9900" }}>
-              <Flex alignItems={"center"} justifyItems={"center"} gap={3}>
-                <BsBookmarksFill size={25} />
-                <Text>Bookmarks</Text>
-              </Flex>
+            <MenuItem
+              bg={colorMode === "dark" ? "#000000" : "gray.300"}
+              _hover={{ color: "#FF9900" }}
+            >
+              <Link
+                as={RouterLink}
+                to="/bookmarks"
+                _hover={{ color: "#FF9900" }}
+                color={location.pathname === "/bookmarks" ? "#FF9900" : ""}
+              >
+                <Flex alignItems={"center"} justifyItems={"center"} gap={3}>
+                  <BsBookmarksFill size={25} />
+                  <Text>Bookmarks</Text>
+                </Flex>
+              </Link>
             </MenuItem>
-            <MenuItem bg="#000000" _hover={{ color: "#FF9900" }}>
-              <Flex alignItems={"center"} justifyItems={"center"} gap={3}>
-                <IoIosFastforward size={25} />
-                <Text>Blitz</Text>
-              </Flex>
+            <MenuItem
+              bg={colorMode === "dark" ? "#000000" : "gray.300"}
+              _hover={{ color: "#FF9900" }}
+            >
+              <Link
+                as={RouterLink}
+                to="/blitz"
+                _hover={{ color: "#FF9900" }}
+                color={location.pathname === "/blitz" ? "#FF9900" : ""}
+              >
+                <Flex alignItems={"center"} justifyItems={"center"} gap={3}>
+                  <IoIosFastforward size={25} />
+                  <Text>Blitz</Text>
+                </Flex>
+              </Link>
             </MenuItem>
-            <MenuItem bg="#000000" _hover={{ color: "#FF9900" }}>
-              <Flex alignItems={"center"} justifyItems={"center"} gap={3}>
-                <MdStars size={25} />
-                <Text>Premium User</Text>
-              </Flex>
+            <MenuItem
+              bg={colorMode === "dark" ? "#000000" : "gray.300"}
+              _hover={{ color: "#FF9900" }}
+            >
+              <Link
+                as={RouterLink}
+                to="/premium"
+                _hover={{ color: "#FF9900" }}
+                color={
+                  location.pathname.startsWith("/premium") ? "#FF9900" : ""
+                }
+              >
+                <Flex alignItems={"center"} justifyItems={"center"} gap={3}>
+                  <MdStars size={25} />
+                  <Text>Premium User</Text>
+                </Flex>
+              </Link>
             </MenuItem>
-            <MenuItem bg="#000000" _hover={{ color: "#FF9900" }}>
-              <Flex alignItems={"center"} justifyItems={"center"} gap={3}>
-                <GrSettingsOption size={25} />
-                <Text>Settings</Text>
-              </Flex>
+            <MenuItem
+              bg={colorMode === "dark" ? "#000000" : "gray.300"}
+              _hover={{ color: "#FF9900" }}
+            >
+              <Link
+                as={RouterLink}
+                to="/settings"
+                _hover={{ color: "#FF9900" }}
+                color={location.pathname === "/settings" ? "#FF9900" : ""}
+              >
+                <Flex alignItems={"center"} justifyItems={"center"} gap={3}>
+                  <GrSettingsOption size={25} />
+                  <Text>Settings</Text>
+                </Flex>
+              </Link>
             </MenuItem>
 
-            <MenuItem bg="#000000" _hover={{ color: "#FF9900" }}>
+            <MenuItem
+              bg={colorMode === "dark" ? "#000000" : "gray.300"}
+              _hover={{ color: "#FF9900" }}
+            >
               <Button
                 size={"xs"}
                 onClick={logout}
