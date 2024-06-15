@@ -1,6 +1,5 @@
 import React from "react";
 import PriceCard from "../components/PriceCard";
-import Box from "next-auth/providers/box";
 import { Flex } from "@chakra-ui/react";
 
 const PremiumPage = () => {
