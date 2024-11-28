@@ -54,30 +54,7 @@ export const MyLiveStreamUI = () => {
   return (
     <Box>
       <Flex flexDirection={"column"} gap={"5px"}>
-        <Box
-          alignSelf={"flex-start"}
-          color={"white"}
-          backgroundColor={"black"}
-          borderRadius={"8px"}
-          padding={("4px", "6px")}
-        >
-          Live: {totalParticipants}
-        </Box>
-        <Box flex={1}>
-          {localParticipants && (
-            <ParticipantView
-              participant={localParticipants}
-              ParticipantViewUI={null}
-            />
-          )}
-        </Box>
-        <Box alignSelf={"center"}>
-          {isCallLive ? (
-            <Button onClick={() => call?.stopLive()}>Stop Livestream</Button>
-          ) : (
-            <Button onClick={() => call?.goLive()}>Start Livestream</Button>
-          )}
-        </Box>
+       <Text>Coming Soon!!</Text>
       </Flex>
     </Box>
   );
