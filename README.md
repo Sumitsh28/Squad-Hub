@@ -6,6 +6,10 @@
 # Welcome to Squad Hub!
 Welcome to Squad HUB, a social media platform designed to connect people and foster interactions in an intuitive and visually appealing environment.
 
+## Process Flow
+![Screenshot (27)](https://github.com/user-attachments/assets/18006d24-f236-4d86-b950-0cb41a6b32d6)
+
+
 ## Core Features
 ###  Create Post
 Create Post in both Text and Image format & express yourself.
@@ -19,9 +23,6 @@ You can follow and unfollow users, you can block users.
 ### Realtime Chatting
 You can chat with your friends in realtime, seen and unseen message feature with notification sound.
 You can also send image to your friends.
-
-### Livestreams
-You can livestream yourself by leveraging WebRTC.
 
 ### Account Actions
 You can activate and deactivate your account
