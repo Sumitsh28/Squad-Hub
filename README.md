@@ -6,6 +6,8 @@
 # Welcome to Squad Hub!
 Welcome to Squad HUB, a social media platform designed to connect people and foster interactions in an intuitive and visually appealing environment.
 
+Live link: https://squad-hub-fv03.onrender.com
+
 ## Process Flow
 ![Screenshot (27)](https://github.com/user-attachments/assets/18006d24-f236-4d86-b950-0cb41a6b32d6)
 
