@@ -1,0 +1,60 @@
+/* Default styles (for larger screens) */
+.video-player-container {
+  position: relative;
+  width: 100%;
+  height: 70vh;
+  background-color: black;
+  overflow: hidden;
+}
+
+.video-scroll-container {
+  height: 70vh;
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.video-scroll-container::-webkit-scrollbar {
+  display: none;
+}
+
+.video-item {
+  height: 70vh;
+  flex-shrink: 0;
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+}
+
+.loading-spinner-container {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: black;
+}
+
+.loading-spinner {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  border: 3px solid rgba(255, 255, 255, 0.2);
+  border-top-color: white;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Media query for small screens */
+@media screen and (max-width: 768px) {
+  .video-player-container,
+  .video-scroll-container,
+  .video-item {
+    height: 100vh;
+  }
+}

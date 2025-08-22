@@ -18,7 +18,6 @@ import PremiumPayment from "./pages/PremiumPayment";
 import PaymentConfirmation from "./pages/PaymentConfirmation";
 import NotificationPage from "./pages/NotificationPage";
 import BookmarksPage from "./pages/BookmarksPage";
-import Live from "./pages/Live";
 import SuggestedUsers from "./components/SuggestedUsers";
 
 function App() {
@@ -65,11 +64,6 @@ function App() {
                 <Route
                   path="/chat"
                   element={user ? <ChatPage /> : <Navigate to={"/auth"} />}
-                />
-
-                <Route
-                  path="/live"
-                  element={user ? <Live /> : <Navigate to={"/auth"} />}
                 />
 
                 <Route

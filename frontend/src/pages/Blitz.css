@@ -20,3 +20,8 @@
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+@media screen and (max-width: 768px) {
+  .app__videos {
+    height: 100vh;
+  }
+}

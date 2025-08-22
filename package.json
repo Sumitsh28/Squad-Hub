@@ -19,6 +19,7 @@
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "jsonwebtoken": "^9.0.2",
+    "lucide-react": "^0.525.0",
     "mongoose": "^8.3.1",
     "node-media-server": "^2.7.0",
     "peerjs": "^1.5.4",

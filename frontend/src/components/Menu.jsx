@@ -96,19 +96,6 @@ const Menuu = () => {
 
         <Link
           as={RouterLink}
-          to="/live"
-          _hover={{ color: "#FF9900" }}
-          color={location.pathname === "/live" ? "#FF9900" : ""}
-        >
-          <Flex justifyContent={"center"} alignItems={"center"} gap={5}>
-            <CiStreamOn size={25} />
-
-            <Text fontWeight={"bold"}>Go Live</Text>
-          </Flex>
-        </Link>
-
-        <Link
-          as={RouterLink}
           to="/notifications"
           _hover={{ color: "#FF9900" }}
           color={location.pathname === "/notifications" ? "#FF9900" : ""}

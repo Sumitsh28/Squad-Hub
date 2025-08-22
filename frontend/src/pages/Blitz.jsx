@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./Blitz.css";
-import Blitzcard from "../components/Blitzcard/Blitzcard";
+import { VideoPlayer } from "../components/Blitzcard/VideoPlayer";
 import { Container, Box, Flex } from "@chakra-ui/react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import useShowToast from "../../hooks/useShowToast";
@@ -34,9 +34,7 @@ function Blitz() {
 
   return (
     <Flex className="app__videos" ml={"100px"}>
-      {blitzs.map((blitz) => (
-        <Blitzcard key={blitz._id} blitz={blitz} postedBy={blitz.postedBy} />
-      ))}
+      <VideoPlayer />
     </Flex>
   );
 }
